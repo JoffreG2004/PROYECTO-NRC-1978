@@ -28,14 +28,14 @@ void quickSort(std::vector<T>& lista, int low, int high, Comparator comp) {
 }
 
 template <typename T, typename Comparator>
-void bubbleSort(std::vector <T>&lista,Comparator comp){
+void bubbleSort(std::vector <T>&lista, Comparator comp){
     int n = lista.size();
     bool swapped; // Bandera para saber si se realizó un intercambio
     for (int i = 0; i < n - 1; i++) {
         swapped = false;// Inicializar la bandera en falso
         
         for (int j = 0; j < n - i - 1; j++) {
-            if (comp(lista[j], lista[j + 1])) {
+            if (!comp(lista[j], lista[j + 1])) {
                 std::swap(lista[j], lista[j + 1]);
                 swapped = true;//se realizó un intercambio
             }
