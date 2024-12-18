@@ -20,11 +20,11 @@ private:
     string marca;
     chrono::system_clock::time_point horaIngreso;
     chrono::system_clock::time_point horaSalida;
-    int año;
+    int anio;
 
 public:
     Coche();
-    Coche(string placa, string modelo, string color, string marca, int año);
+    Coche(string placa, string modelo, string color, string marca, int anio);
     Coche(string placa, string modelo, string color, string marca,
           chrono::system_clock::time_point horaIngreso, chrono::system_clock::time_point horaSalida);
 
@@ -39,7 +39,7 @@ public:
     string getMarca() const;
     string getModelo() const;
     string getColor() const;
-    int getAño() const;
+    int getAnio() const;
     chrono::system_clock::time_point getHora() const;
 
     Coche InsertarDatos(ListaCircularDoble<Coche> &lista, ListaCircularDoble<Coche> &listaHistorial, ListaPropietarios &listaPropietarios);

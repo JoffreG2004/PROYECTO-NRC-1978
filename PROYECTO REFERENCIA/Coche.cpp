@@ -18,12 +18,12 @@ Coche::Coche()
     this->color = "";
 }
 
-Coche::Coche(string placa, string modelo, string color, string marca, int año)
+Coche::Coche(string placa, string modelo, string color, string marca, int anio)
     : placa(placa), modelo(modelo), color(color), marca(marca), horaIngreso(chrono::system_clock::now()) {}
 
 Coche::Coche(string placa, string modelo, string color, string marca,
              chrono::system_clock::time_point horaIngreso, chrono::system_clock::time_point horaSalida)
-    : placa(placa), modelo(modelo), color(color), marca(marca), año(año),
+    : placa(placa), modelo(modelo), color(color), marca(marca), anio(anio),
       horaIngreso(horaIngreso), horaSalida(horaSalida) {}
 
 void Coche::setHoraSalida(chrono::system_clock::time_point hora)
@@ -76,9 +76,9 @@ string Coche::getColor() const
     return color;
 }
 
-int Coche::getAño() const
+int Coche::getAnio() const
 {
-    return año;
+    return anio;
 }
 
 chrono::system_clock::time_point Coche::getHora() const
