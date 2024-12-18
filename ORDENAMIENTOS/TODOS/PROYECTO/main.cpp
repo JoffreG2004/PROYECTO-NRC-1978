@@ -1,8 +1,7 @@
 #include <iostream>
 #include "Menu.h"
 
-int main()
-{
+int main() {
 ListaPropietarios listaPropietarios;
     listaPropietarios.cargarArchivo("propietarios.txt");
 ListaCircularDoble<Coche> listaCochesHistorial;

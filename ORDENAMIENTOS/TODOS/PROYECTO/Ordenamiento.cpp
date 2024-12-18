@@ -28,11 +28,32 @@ void quickSort(std::vector<T>& lista, int low, int high, Comparator comp) {
 }
 
 template <typename T, typename Comparator>
+void bubbleSort(std::vector <T>&lista,Comparator comp){
+    int n = lista.size();
+    bool swapped; // Bandera para saber si se realizó un intercambio
+    for (int i = 0; i < n - 1; i++) {
+        swapped = false;// Inicializar la bandera en falso
+        
+        for (int j = 0; j < n - i - 1; j++) {
+            if (comp(lista[j], lista[j + 1])) {
+                std::swap(lista[j], lista[j + 1]);
+                swapped = true;//se realizó un intercambio
+            }
+        }
+        //Si no se realizan cambios, la lista ya esta en orden
+        //terminar el ciclo
+        if (!swapped) {
+            break;
+        }
+    }
+}
+
+template <typename T, typename Comparator>
 void ordenarLista(ListaCircularDoble<T>& lista, Comparator comp) {
     std::vector<T> elementos;
     
     Nodo<T>* aux = lista.getPrimero();
-    do {
+    do {   
         elementos.push_back(aux->getDato());
         aux = aux->getSiguiente();
     } while (aux != lista.getPrimero());
@@ -45,6 +66,28 @@ void ordenarLista(ListaCircularDoble<T>& lista, Comparator comp) {
         aux->setDato(elementos[index++]);
         aux = aux->getSiguiente();
     } while (aux != lista.getPrimero());
+
+    lista.mostrar(lista.getPrimero());
+}
+
+template <typename T, typename Comparator>
+void ordenarListaBubbleSort(ListaCircularDoble<T>& lista,Comparator comp){
+    std::vector<T> elementos;
+
+    Nodo<T>* aux = lista.getPrimero();
+    do{                     // Extraer los elementos de la lista circular doble
+        elementos.push_back(aux->getDato());
+        aux= aux->getSiguiente();
+    }while (aux != lista.getPrimero());
+
+    bubbleSort(elementos,comp);// Ordenar los elementos
+
+    aux=lista.getPrimero();
+    int index=0;// Volver a insertar los elementos ordenados en la lista circular doble
+    do{
+        aux->setDato(elementos[index++]);
+        aux=aux->getSiguiente();
+    }while (aux != lista.getPrimero());
 
     lista.mostrar(lista.getPrimero());
 }
