@@ -28,24 +28,31 @@ void quickSort(std::vector<T>& lista, int low, int high, Comparator comp) {
 }
 
 template <typename T, typename Comparator>
-void bubbleSort(std::vector <T>&lista, Comparator comp){
-    int n = lista.size();
-    bool swapped; // Bandera para saber si se realizó un intercambio
-    for (int i = 0; i < n - 1; i++) {
-        swapped = false;// Inicializar la bandera en falso
-        
-        for (int j = 0; j < n - i - 1; j++) {
-            if (!comp(lista[j], lista[j + 1])) {
-                std::swap(lista[j], lista[j + 1]);
-                swapped = true;//se realizó un intercambio
-            }
-        }
-        //Si no se realizan cambios, la lista ya esta en orden
-        //terminar el ciclo
-        if (!swapped) {
-            break;
+void bubbleSortPass(std::vector<T>& lista, Comparator comp, int n) {
+    // Función auxiliar que realiza una pasada completa de intercambios
+    if (n <= 1) return;
+
+    for (int j = 0; j < n - 1; j++) {
+        if (!comp(lista[j], lista[j + 1])) {
+            std::swap(lista[j], lista[j + 1]);
         }
     }
+}
+
+template <typename T, typename Comparator>
+void bubbleSortRecursive(std::vector<T>& lista, Comparator comp, int n) {
+    // Función recursiva principal
+    if (n <= 1) return;
+    // Realizar una pasada completa de intercambios
+    bubbleSortPass(lista, comp, n);
+    // Llamada recursiva con un rango reducido
+    bubbleSortRecursive(lista, comp, n - 1);
+}
+
+// Función wrapper para iniciar el ordenamiento
+template <typename T, typename Comparator>
+void bubbleSort(std::vector<T>& lista, Comparator comp) {
+    bubbleSortRecursive(lista, comp, lista.size());
 }
 
 template <typename T, typename Comparator>
