@@ -558,6 +558,18 @@ void menuOrdenar(ListaCircularDoble<Coche> &lista, ListaCircularDoble<Coche> &li
         cout << "           Menu de Ordenamiento         " << endl;
         cout << "========================================" << endl;
 
+        vector<string> opcionesMetodo = {
+            "Quick Sort",
+            "Bucket Sort",
+            "Volver al Menu Principal"};
+
+        int seleccionMetodo = menuInteractivo(opcionesMetodo, "Seleccione el método de ordenamiento:");
+
+        if (seleccionMetodo == 2) {
+            salirSubmenu = true;
+            continue;
+        }
+
         vector<string> opcionesOrdenar = {
             "Ordenar por Placa",
             "Ordenar por Apellido del Propietario",
@@ -568,40 +580,66 @@ void menuOrdenar(ListaCircularDoble<Coche> &lista, ListaCircularDoble<Coche> &li
 
         int seleccionOrdenar = menuInteractivo(opcionesOrdenar, "Seleccione el criterio de ordenamiento:");
 
-        switch (seleccionOrdenar)
-        {
-        case 0:
-            ordenarLista(lista, [](const Coche &a, const Coche &b) { return a.getPlaca() < b.getPlaca(); });
-            lista.GuardarArchivo("autos.txt");
-            cout << "Lista ordenada por placa y guardada exitosamente." << endl;
-            break;
-        case 1:
-            ordenarLista(lista, [](const Coche &a, const Coche &b) { return a.getPropietario().getApellido() < b.getPropietario().getApellido(); });
-            lista.GuardarArchivo("autos.txt");
-            cout << "Lista ordenada por apellido del propietario y guardada exitosamente." << endl;
-            break;
-        case 2:
-            ordenarLista(lista, [](const Coche &a, const Coche &b) { return a.getColor() < b.getColor(); });
-            lista.GuardarArchivo("autos.txt");
-            cout << "Lista ordenada por color y guardada exitosamente." << endl;
-            break;
-        case 3:
-            ordenarLista(lista, [](const Coche &a, const Coche &b) { return a.getModelo() < b.getModelo(); });
-            lista.GuardarArchivo("autos.txt");
-            cout << "Lista ordenada por modelo y guardada exitosamente." << endl;
-            break;
-        case 4:
-            ordenarLista(lista, [](const Coche &a, const Coche &b) { return a.getMarca() < b.getMarca(); });
-            lista.GuardarArchivo("autos.txt");
-            cout << "Lista ordenada por marca y guardada exitosamente." << endl;
-            break;
-        case 5:
-            salirSubmenu = true;
-            break;
-        default:
-            cout << "Opcion invalida. Intente de nuevo." << endl;
+        if (seleccionOrdenar == 5) {
+            continue; 
         }
 
+        
+        if (seleccionMetodo == 0) { // Quick Sort
+            switch (seleccionOrdenar) {
+                case 0:
+                    ordenarLista(lista, [](const Coche &a, const Coche &b) { return a.getPlaca() < b.getPlaca(); });
+                    cout << "Lista ordenada por placa y guardada exitosamente." << endl;
+                    break;
+                case 1:
+                    ordenarLista(lista, [](const Coche &a, const Coche &b) { return a.getPropietario().getApellido() < b.getPropietario().getApellido(); });
+                    cout << "Lista ordenada por apellido del propietario y guardada exitosamente." << endl;
+                    break;
+                case 2:
+                    ordenarLista(lista, [](const Coche &a, const Coche &b) { return a.getColor() < b.getColor(); });
+                    cout << "Lista ordenada por color y guardada exitosamente." << endl;
+                    break;
+                case 3:
+                    ordenarLista(lista, [](const Coche &a, const Coche &b) { return a.getModelo() < b.getModelo(); });
+                    cout << "Lista ordenada por modelo y guardada exitosamente." << endl;
+                    break;
+                case 4:
+                    ordenarLista(lista, [](const Coche &a, const Coche &b) { return a.getMarca() < b.getMarca(); });
+                    cout << "Lista ordenada por marca y guardada exitosamente." << endl;
+                    break;
+                default:
+                    cout << "Opción inválida. Intente de nuevo." << endl;
+            }
+        } else if (seleccionMetodo == 1) { // Bucket Sort
+            std::function<std::string(const Coche&)> getKey;
+
+            switch (seleccionOrdenar) {
+                case 0:
+                    getKey = [](const Coche &item) { return item.getPlaca(); };
+                    break;
+                case 1:
+                    getKey = [](const Coche &item) { return item.getPropietario().getApellido(); };
+                    break;
+                case 2:
+                    getKey = [](const Coche &item) { return item.getColor(); };
+                    break;
+                case 3:
+                    getKey = [](const Coche &item) { return item.getModelo(); };
+                    break;
+                case 4:
+                    getKey = [](const Coche &item) { return item.getMarca(); };
+                    break;
+                default:
+                    cout << "Opción inválida. Intente de nuevo." << endl;
+                    continue; // Salir del switch si la opción es inválida
+            }
+
+            
+            ordenarListaBucket(lista, getKey);
+            cout << "Lista ordenada por el criterio seleccionado y guardada exitosamente." << endl;
+        }
+
+        lista.GuardarArchivo("autos.txt");
         system("pause");
     }
 }
