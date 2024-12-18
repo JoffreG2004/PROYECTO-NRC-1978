@@ -144,3 +144,52 @@ void ordenarListaBucket(ListaCircularDoble<T>& lista, std::function<std::string(
     // Mostrar la lista ordenada
     lista.mostrar(lista.getPrimero());
 }
+
+template <typename T, typename Comparator>
+void ordenarListaShellSort(ListaCircularDoble<T>& lista, Comparator comp) {
+    // Contar el número de elementos en la lista circular doble
+    int n = 0;
+    Nodo<T>* aux = lista.getPrimero();
+    if (aux != nullptr) {
+        do {
+            n++;
+            aux = aux->getSiguiente();
+        } while (aux != lista.getPrimero());
+    }
+
+    // Crear un arreglo dinámico para almacenar los elementos
+    T* elementos = new T[n];
+
+    // Copiar los elementos de la lista al arreglo
+    aux = lista.getPrimero();
+    for (int i = 0; i < n; ++i) {
+        elementos[i] = aux->getDato();
+        aux = aux->getSiguiente();
+    }
+
+    // Implementación del algoritmo Shell Sort
+    for (int gap = n / 2; gap > 0; gap /= 2) {
+        for (int i = gap; i < n; ++i) {
+            T temp = elementos[i];
+            int j;
+            for (j = i; j >= gap && comp(temp, elementos[j - gap]); j -= gap) {
+                elementos[j] = elementos[j - gap];
+            }
+            elementos[j] = temp;
+        }
+    }
+
+    // Volver a copiar los elementos ordenados en la lista
+    aux = lista.getPrimero();
+    for (int i = 0; i < n; ++i) {
+        aux->setDato(elementos[i]);
+        aux = aux->getSiguiente();
+    }
+
+    // Liberar memoria dinámica
+    delete[] elementos;
+
+    // Mostrar la lista ordenada
+    lista.mostrar(lista.getPrimero());
+}
+
