@@ -283,7 +283,7 @@ void menu(ListaCircularDoble<Coche> &lista, ListaCircularDoble<Coche> &listaHist
             system("cls");
             cout << "========================================" << endl;
             cout << "========================================" << endl;
-            cout << "     BIENVENIDOS A LA BUSQUEDA AVANZADA  " << endl;
+            cout << "   BIENVENIDOS A LA BUSQUEDA AVANZADA   " << endl;
             cout << "========================================" << endl;
             cout << "========================================" << endl;
 
@@ -296,11 +296,11 @@ void menu(ListaCircularDoble<Coche> &lista, ListaCircularDoble<Coche> &listaHist
         case 5:
         {
             system("cls");
-            cout << "========================================" << endl;
-            cout << "========================================" << endl;
-            cout << "  BIENVENIDOS A LA GESTION DE ESTACIONAMIENTO " << endl;
-            cout << "========================================" << endl;
-            cout << "========================================" << endl;
+            cout << "=============================================" << endl;
+            cout << "=============================================" << endl;
+            cout << " BIENVENIDOS A LA GESTION DE ESTACIONAMIENTO " << endl;
+            cout << "=============================================" << endl;
+            cout << "=============================================" << endl;
             string placa;
             cout << "Ingrese la placa del coche que  va a  dejar el estacionamiento: ";
             cin >> placa;
@@ -487,7 +487,7 @@ void menuBusquedaAvanzada(ListaCircularDoble<Coche> &lista, ListaCircularDoble<C
             {
                 system("cls");
                 cout << "========================================" << endl;
-                cout << "  Buscar por Año/Fecha" << endl;
+                cout << "  Buscar por Anio/Fecha" << endl;
                 cout << "========================================" << endl;
                 string fecha;
                 cout << "Ingrese la fecha (DD-MM-AAAA): ";
@@ -588,6 +588,7 @@ void menuOrdenar(ListaCircularDoble<Coche> &lista, ListaCircularDoble<Coche> &li
             continue;
         }
 
+        system("cls");
         if (seleccionMetodo == 0)
         { // Quick Sort
             switch (seleccionOrdenar)
