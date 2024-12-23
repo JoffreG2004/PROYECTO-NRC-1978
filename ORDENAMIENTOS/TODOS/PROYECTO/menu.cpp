@@ -562,11 +562,12 @@ void menuOrdenar(ListaCircularDoble<Coche> &lista, ListaCircularDoble<Coche> &li
             "Bucket Sort",
             "Bubble Sort",
             "Shell Sort",
+            "Radix sort",
             "Volver al Menu Principal"};
 
         int seleccionMetodo = menuInteractivo(opcionesMetodo, "Seleccione el método de ordenamiento:");
 
-        if (seleccionMetodo == 4)
+        if (seleccionMetodo == 5)
         {
             salirSubmenu = true;
             continue;
@@ -714,6 +715,39 @@ void menuOrdenar(ListaCircularDoble<Coche> &lista, ListaCircularDoble<Coche> &li
             case 4:
                 ordenarListaShellSort(lista, [](const Coche &a, const Coche &b)
                                       { return a.getMarca() < b.getMarca(); });
+                cout << "Lista ordenada por marca y guardada exitosamente." << endl;
+                break;
+            default:
+                cout << "Opción inválida. Intente de nuevo." << endl;
+            }
+        }else if (seleccionMetodo == 4){ // Radix
+            switch (seleccionOrdenar)
+            {
+            case 0:
+                /*ordenarListaPorRadix(lista, [](const Coche &a, const Coche &b)
+                                      { return a.getPlaca() < b.getPlaca(); });*/
+                ordenarListaPorRadix(lista, [](const Coche& coche) { return coche.getPlaca(); });
+                lista.GuardarArchivo("autos.txt");
+                cout << "Lista ordenada por placa y guardada exitosamente." << endl;
+                break;
+            case 1:
+                ordenarListaPorRadix(lista, [](const Coche& coche) { return coche.getPropietario().getApellido(); });
+                lista.GuardarArchivo("autos.txt");
+                cout << "Lista ordenada por apellido del propietario y guardada exitosamente." << endl;
+                break;
+            case 2:
+                ordenarListaPorRadix(lista, [](const Coche& coche) { return coche.getColor(); });
+                lista.GuardarArchivo("autos.txt");
+                cout << "Lista ordenada por color y guardada exitosamente." << endl;
+                break;
+            case 3:
+                ordenarListaPorRadix(lista, [](const Coche& coche) { return coche.getModelo(); });
+                lista.GuardarArchivo("autos.txt");
+                cout << "Lista ordenada por modelo y guardada exitosamente." << endl;
+                break;
+            case 4:
+                ordenarListaPorRadix(lista, [](const Coche& coche) { return coche.getMarca(); });
+                lista.GuardarArchivo("autos.txt");
                 cout << "Lista ordenada por marca y guardada exitosamente." << endl;
                 break;
             default:
