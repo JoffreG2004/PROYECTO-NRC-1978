@@ -306,3 +306,82 @@ void ordenarListaPorRadix(ListaCircularDoble<T>& lista, KeyExtractor getKey) {
 
     lista.mostrar(lista.getPrimero());
 }
+//--------------------Heap Sort---------------------------------------------
+template <typename T, typename Comparator>
+void ordenarListaHeapSort(ListaCircularDoble<T>& lista, Comparator comp) {
+    // Lambda para contar elementos en la lista circular doble
+    auto contarElementos = [&]() -> int {
+        int n = 0;
+        Nodo<T>* aux = lista.getPrimero();
+        if (aux != nullptr) {
+            do {
+                ++n;
+                aux = aux->getSiguiente();
+            } while (aux != lista.getPrimero());
+        }
+        return n;
+    };
+
+    // Lambda para copiar elementos de la lista a un arreglo
+    auto copiarListaAArreglo = [&](T* elementos, int n) {
+        Nodo<T>* aux = lista.getPrimero();
+        for (int i = 0; i < n; ++i) {
+            elementos[i] = aux->getDato();
+            aux = aux->getSiguiente();
+        }
+    };
+
+    // Lambda para copiar elementos del arreglo a la lista
+    auto copiarArregloALista = [&](T* elementos, int n) {
+        Nodo<T>* aux = lista.getPrimero();
+        for (int i = 0; i < n; ++i) {
+            aux->setDato(elementos[i]);
+            aux = aux->getSiguiente();
+        }
+    };
+
+    // Lambda para hacer heapify
+    auto heapify = [&](T* elementos, int n, int i) {
+        int largest = i;
+        int left = 2 * i + 1;
+        int right = 2 * i + 2;
+
+        if (left < n && comp(elementos[left], elementos[largest])) {
+            largest = left;
+        }
+
+        if (right < n && comp(elementos[right], elementos[largest])) {
+            largest = right;
+        }
+
+        if (largest != i) {
+            std::swap(elementos[i], elementos[largest]);
+            heapify(elementos, n, largest);
+        }
+    };
+
+    // Lambda para construir el heap
+    auto buildHeap = [&](T* elementos, int n) {
+        for (int i = n / 2 - 1; i >= 0; --i) {
+            heapify(elementos, n, i);
+        }
+    };
+
+    // Lambda para realizar el heap sort
+    auto heapSort = [&](T* elementos, int n) {
+        buildHeap(elementos, n);
+        for (int i = n - 1; i > 0; --i) {
+            std::swap(elementos[0], elementos[i]);
+            heapify(elementos, i, 0);
+        }
+    };
+
+    int n = contarElementos();
+    if (n > 0) {
+        T* elementos = new T[n];
+        copiarListaAArreglo(elementos, n);
+        heapSort(elementos, n);
+        copiarArregloALista(elementos, n);
+        delete[] elementos;
+    }
+}

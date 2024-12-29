@@ -563,11 +563,12 @@ void menuOrdenar(ListaCircularDoble<Coche> &lista, ListaCircularDoble<Coche> &li
             "Bubble Sort",
             "Shell Sort",
             "Radix sort",
+            "Heap Sort",
             "Volver al Menu Principal"};
 
         int seleccionMetodo = menuInteractivo(opcionesMetodo, "Seleccione el método de ordenamiento:");
 
-        if (seleccionMetodo == 5)
+        if (seleccionMetodo == 6)
         {
             salirSubmenu = true;
             continue;
@@ -753,6 +754,39 @@ void menuOrdenar(ListaCircularDoble<Coche> &lista, ListaCircularDoble<Coche> &li
                 break;
             default:
                 cout << "Opción inválida. Intente de nuevo." << endl;
+            }
+        }else if (seleccionMetodo == 5)
+        { // Heap Sort
+            switch (seleccionOrdenar)
+            {
+            case 0:
+                ordenarListaHeapSort(lista, [](const Coche &a, const Coche &b)
+                                     { return a.getPlaca() < b.getPlaca(); });
+                cout << "Lista ordenada por placa y guardada exitosamente." << endl;
+                break;
+            case 1:
+                ordenarListaHeapSort(lista, [](const Coche &a, const Coche &b)
+                                     { return a.getPropietario().getApellido() < b.getPropietario().getApellido(); });
+                cout << "Lista ordenada por apellido del propietario y guardada exitosamente." << endl;
+                break;
+            case 2:
+                ordenarListaHeapSort(lista, [](const Coche &a, const Coche &b)
+                                     { return a.getColor() < b.getColor(); });
+                cout << "Lista ordenada por color y guardada exitosamente." << endl;
+                break;
+            case 3:
+                ordenarListaHeapSort(lista, [](const Coche &a, const Coche &b)
+                                     { return a.getModelo() < b.getModelo(); });
+                cout << "Lista ordenada por modelo y guardada exitosamente." << endl;
+                break;
+            case 4:
+                ordenarListaHeapSort(lista, [](const Coche &a, const Coche &b)
+                                     { return a.getMarca() < b.getMarca(); });
+                cout << "Lista ordenada por marca y guardada exitosamente." << endl;
+                break;
+            default:
+                cout << "Opción inválida. Intente de nuevo." << endl;
+                break;
             }
         }
 
