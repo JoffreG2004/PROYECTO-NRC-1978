@@ -309,7 +309,7 @@ void ordenarListaPorRadix(ListaCircularDoble<T>& lista, KeyExtractor getKey) {
 //--------------------Heap Sort---------------------------------------------
 template <typename T, typename Comparator>
 void ordenarListaHeapSort(ListaCircularDoble<T>& lista, Comparator comp) {
-    // Lambda para contar elementos en la lista circular doble
+    // Lambda for counting elements in the circular doubly linked list
     auto contarElementos = [&]() -> int {
         int n = 0;
         Nodo<T>* aux = lista.getPrimero();
@@ -322,7 +322,7 @@ void ordenarListaHeapSort(ListaCircularDoble<T>& lista, Comparator comp) {
         return n;
     };
 
-    // Lambda para copiar elementos de la lista a un arreglo
+    // Lambda for copying elements from the list to an array
     auto copiarListaAArreglo = [&](T* elementos, int n) {
         Nodo<T>* aux = lista.getPrimero();
         for (int i = 0; i < n; ++i) {
@@ -331,7 +331,7 @@ void ordenarListaHeapSort(ListaCircularDoble<T>& lista, Comparator comp) {
         }
     };
 
-    // Lambda para copiar elementos del arreglo a la lista
+    // Lambda for copying elements from the array to the list
     auto copiarArregloALista = [&](T* elementos, int n) {
         Nodo<T>* aux = lista.getPrimero();
         for (int i = 0; i < n; ++i) {
@@ -340,8 +340,8 @@ void ordenarListaHeapSort(ListaCircularDoble<T>& lista, Comparator comp) {
         }
     };
 
-    // Lambda para hacer heapify
-    auto heapify = [&](T* elementos, int n, int i) {
+    // Lambda for heapify
+    std::function<void(T*, int, int)> heapify = [&](T* elementos, int n, int i) {
         int largest = i;
         int left = 2 * i + 1;
         int right = 2 * i + 2;
@@ -360,14 +360,14 @@ void ordenarListaHeapSort(ListaCircularDoble<T>& lista, Comparator comp) {
         }
     };
 
-    // Lambda para construir el heap
+    // Lambda for building the heap
     auto buildHeap = [&](T* elementos, int n) {
         for (int i = n / 2 - 1; i >= 0; --i) {
             heapify(elementos, n, i);
         }
     };
 
-    // Lambda para realizar el heap sort
+    // Lambda for performing heap sort
     auto heapSort = [&](T* elementos, int n) {
         buildHeap(elementos, n);
         for (int i = n - 1; i > 0; --i) {
